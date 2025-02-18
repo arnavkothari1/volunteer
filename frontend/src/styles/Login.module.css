@@ -1,0 +1,12 @@
+.errorMessage {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border: 1px solid #ef5350;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ... rest of your styles ... */ 

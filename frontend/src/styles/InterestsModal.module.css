@@ -1,0 +1,122 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.modalContent {
+  padding: 2rem;
+}
+
+.modalContent h2 {
+  color: #1a237e;
+  margin-bottom: 0.5rem;
+}
+
+.modalContent p {
+  color: #64748b;
+  margin-bottom: 2rem;
+}
+
+.interestCategories {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.category h3 {
+  color: #1a237e;
+  margin-bottom: 1rem;
+}
+
+.interestGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.interestButton {
+  background: white;
+  border: 2px solid #e8eaf6;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  color: #1a237e;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.interestButton:hover {
+  border-color: #1a237e;
+  background: #f8fafc;
+}
+
+.interestButton.selected {
+  background: #1a237e;
+  color: white;
+  border-color: #1a237e;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.primaryButton, .secondaryButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.primaryButton {
+  background: #1a237e;
+  color: white;
+  border: none;
+}
+
+.primaryButton:hover {
+  background: #0d1b6d;
+}
+
+.secondaryButton {
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.secondaryButton:hover {
+  background: #f8fafc;
+} 

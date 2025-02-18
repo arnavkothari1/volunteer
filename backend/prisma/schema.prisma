@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String      @id @default(cuid()) @map("_id")
+  email     String      @unique
+  password  String
+  firstName String
+  lastName  String
+  location  String?
+  userType  String?     // This will store 'STUDENT' or 'ORGANIZER'
+  company          Company?
+  applications Application[]
+}
+
+model Company {
+  id                String      @id @default(cuid()) @map("_id")
+  name             String
+  description      String
+  userPosition     String
+  occupiedPositions String[]
+  interests        String[]
+  location         String
+  isRemote         Boolean     @default(false)
+  organizerId      String      @unique
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  user             User        @relation(fields: [organizerId], references: [id])
+  internships      Internship[]
+  tasks           Task[]
+  applications Application[]
+}
+
+model Internship {
+  id              String    @id @default(cuid()) @map("_id")
+  title           String
+  description     String
+  requirements    String[]
+  skills          String[]
+  workLocation    String
+  isRemote        Boolean   @default(false)
+  howToApply      String
+  status          String    @default("OPEN") // OPEN, CLOSED
+  companyId       String
+  company         Company   @relation(fields: [companyId], references: [id])
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  applications    Application[]
+}
+
+model Task {
+  id              String    @id @default(cuid()) @map("_id")
+  title           String
+  description     String
+  deadline        DateTime
+  status          String    @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED
+  priority        String    @default("MEDIUM") // LOW, MEDIUM, HIGH
+  companyId       String
+  company         Company   @relation(fields: [companyId], references: [id])
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+enum UserRole {
+  STUDENT
+  ORGANIZER
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model Application {
+  id           String   @id @default(cuid()) @map("_id")
+  coverLetter  String
+  requirements Json     // Changed from String to Json
+  skills       Json     // Changed from String to Json
+  contactEmail String   // Added back
+  contactPhone String   // Added back
+  status       String   @default("PENDING")
+  statusMessage String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  internship   Internship @relation(fields: [internshipId], references: [id])
+  internshipId String
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String
+  company      Company    @relation(fields: [companyId], references: [id])
+  companyId    String
+
+  @@index([internshipId])
+  @@index([userId])
+  @@index([companyId])
+} 

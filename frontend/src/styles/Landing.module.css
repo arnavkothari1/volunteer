@@ -1,0 +1,248 @@
+.pageContainer {
+  min-height: 100vh;
+  background: #f3f2ef;
+}
+
+.nav {
+  padding: 16px 0;
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.navContent {
+  max-width: 1128px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0a66c2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.signInButton {
+  padding: 12px 24px;
+  border-radius: 24px;
+  border: 1px solid #0a66c2;
+  color: #0a66c2;
+  background: transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.signInButton:hover {
+  background: rgba(10, 102, 194, 0.1);
+}
+
+.mainContent {
+  max-width: 1128px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.welcomeTitle {
+  font-size: 56px;
+  line-height: 70px;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 200;
+  margin-bottom: 16px;
+}
+
+.welcomeSubtitle {
+  font-size: 20px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 40px;
+}
+
+.authButtons {
+  max-width: 400px;
+  margin-bottom: 48px;
+}
+
+.googleButton, .emailButton {
+  width: 100%;
+  padding: 12px;
+  border-radius: 28px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.googleButton {
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  background: white;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.emailButton {
+  background: #0a66c2;
+  color: white;
+  border: none;
+  margin-top: 16px;
+}
+
+.googleButton:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.emailButton:hover {
+  background: #004182;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.divider span {
+  padding: 0 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.terms {
+  margin-top: 16px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.terms a {
+  color: #0a66c2;
+  text-decoration: none;
+}
+
+.terms a:hover {
+  text-decoration: underline;
+}
+
+.exploreSection {
+  margin-top: 48px;
+}
+
+.exploreSection h2 {
+  font-size: 32px;
+  color: rgba(0, 0, 0, 0.9);
+  margin-bottom: 24px;
+}
+
+.exploreSection h3 {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.9);
+  margin: 24px 0 8px;
+}
+
+.exploreSection p {
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 8px;
+}
+
+.exploreSection ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.exploreSection li {
+  color: rgba(0, 0, 0, 0.6);
+  margin: 8px 0;
+  padding-left: 24px;
+  position: relative;
+}
+
+.exploreSection li::before {
+  content: '•';
+  position: absolute;
+  left: 8px;
+  color: #0a66c2;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.statItem {
+  text-align: center;
+}
+
+.statItem span {
+  font-size: 40px;
+  font-weight: 600;
+  color: #0a66c2;
+  display: block;
+}
+
+.statItem p {
+  margin-top: 8px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.sidebar {
+  width: 45%;
+  background-color: white;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 1200px) {
+  .sidebar {
+    width: 50%;
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 24px;
+  }
+
+  .welcomeTitle {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .welcomeSubtitle {
+    font-size: 18px;
+  }
+
+  .rightSection {
+    display: none;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+} 

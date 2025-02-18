@@ -1,0 +1,68 @@
+.illustration {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(45deg, #f3f2f0, #ffffff);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.illustrationContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+}
+
+.person {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.laptop {
+  width: 200px;
+  height: 120px;
+  background: #0a66c2;
+  border-radius: 8px;
+  position: relative;
+}
+
+.laptop::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 10px;
+  background: #004182;
+  border-radius: 4px;
+}
+
+.books {
+  position: absolute;
+  right: -40px;
+  bottom: 20px;
+  width: 60px;
+  height: 80px;
+  background: #8f5849;
+  border-radius: 4px;
+  transform: rotate(-15deg);
+}
+
+.certificates {
+  position: absolute;
+  left: -40px;
+  top: 20px;
+  width: 70px;
+  height: 90px;
+  background: #e7a33e;
+  border-radius: 4px;
+  transform: rotate(15deg);
+} 

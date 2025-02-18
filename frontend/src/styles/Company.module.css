@@ -1,0 +1,205 @@
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.details {
+  margin-top: 1rem;
+}
+
+.positions {
+  margin: 2rem 0;
+}
+
+.positionsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.positionCard {
+  padding: 1.5rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: white;
+}
+
+.applyButton {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.applyButton:hover {
+  background: #0056b3;
+}
+
+.companyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.companyCard {
+  padding: 1.5rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: white;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s;
+}
+
+.companyCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.companyMeta {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.companyHeader {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.companyHeader h1 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.meta {
+  display: flex;
+  gap: 20px;
+  color: #666;
+}
+
+.openPositions {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.openPositions h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.internshipsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.internshipCard {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.internshipCard h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.internshipDescription {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.internshipDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.detailsSection h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.detailsSection ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detailsSection li {
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.locationInfo {
+  grid-column: 1 / -1;
+  color: #666;
+}
+
+.internshipActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.applyButton, .checkApplicants {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.applyButton {
+  background: #0066cc;
+  color: white;
+}
+
+.checkApplicants {
+  background: #28a745;
+  color: white;
+}
+
+.applyButton:hover {
+  background: #0052a3;
+}
+
+.checkApplicants:hover {
+  background: #218838;
+} 

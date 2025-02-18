@@ -1,0 +1,23 @@
+.layout {
+  composes: layout from './SharedLayout.module.css';
+}
+
+.mainContent {
+  composes: mainContent from './SharedLayout.module.css';
+}
+
+.container {
+  composes: container from './SharedLayout.module.css';
+}
+
+.title {
+  composes: title from './SharedLayout.module.css';
+}
+
+.pathGrid {
+  composes: grid from './SharedLayout.module.css';
+}
+
+.pathCard {
+  composes: card from './SharedLayout.module.css';
+} 

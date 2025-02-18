@@ -1,0 +1,151 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  margin: 0;
+  color: #333;
+}
+
+.remoteBadge {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  float: right;
+}
+
+.section {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 24px;
+}
+
+.section h2 {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.details {
+  display: grid;
+  gap: 16px;
+}
+
+.detailItem {
+  display: flex;
+  gap: 8px;
+}
+
+.label {
+  color: #666;
+  font-weight: 500;
+  min-width: 120px;
+}
+
+.positions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.positionTag {
+  background: #f5f5f5;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  color: #555;
+}
+
+.internships {
+  display: grid;
+  gap: 16px;
+}
+
+.internshipCard {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.internshipCard h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #e3f2fd;
+  color: #1976d2;
+  margin-top: 8px;
+}
+
+.internshipsSection {
+  margin-top: 30px;
+}
+
+.internshipsList {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.description {
+  color: #444;
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.skillsSection, .requirementsSection {
+  margin: 15px 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tag {
+  background: #f5f5f5;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  color: #555;
+}
+
+.applyButton {
+  width: 100%;
+  padding: 12px;
+  background: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.2s;
+}
+
+.applyButton:hover {
+  background: #0052a3;
+} 
