@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const isPublicRoute = publicRoutes.includes(router.pathname as "/auth/login" | "/auth/signup" | "/");
+  const isPublicRoute = publicRoutes.includes(router.pathname);
 
   return (
     <OnboardingProvider>

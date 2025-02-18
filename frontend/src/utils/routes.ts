@@ -9,11 +9,7 @@ export const ROUTES = {
 } as const;
 
 // Auth route protection
-export const publicRoutes = [
-  ROUTES.HOME,
-  ROUTES.LOGIN,
-  ROUTES.SIGNUP
-];
+export const publicRoutes = ['/', '/auth/login', '/auth/signup'];
 
 export const authRoutes = [
   ROUTES.INTERESTS,

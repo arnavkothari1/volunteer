@@ -9,7 +9,10 @@ import applicationRoutes from './routes/applications';
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: [
+    'https://volunteer-zu91e2qw-arnav-kotharis-projects.vercel.app',
+    'http://localhost:3000'  // Keep this for local development
+  ],
   credentials: true
 }));
 

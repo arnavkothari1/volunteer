@@ -41,4 +41,6 @@ export const config = {
      */
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
-}; 
+};
+
+// Check if this file exists and has any forced redirects 
