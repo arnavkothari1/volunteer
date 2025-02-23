@@ -1,48 +1,38 @@
-import React, { Component, ErrorInfo } from 'react';
-import * as Sentry from '@sentry/react';
+import React from 'react';
 
 interface Props {
   children: React.ReactNode;
-  fallback?: React.ReactNode;
 }
 
 interface State {
   hasError: boolean;
-  error?: Error;
+  error: Error | null;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
-    hasError: false
-  };
+class ErrorBoundary extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
 
-  public static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error) {
     return { hasError: true, error };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    Sentry.captureException(error, {
-      contexts: {
-        react: {
-          componentStack: errorInfo.componentStack
-        }
-      }
-    });
-  }
-
-  public render() {
+  render() {
     if (this.state.hasError) {
-      return this.props.fallback || (
-        <div className="error-boundary">
-          <h2>Something went wrong</h2>
-          <p>{this.state.error?.message}</p>
-          <button onClick={() => window.location.reload()}>
-            Refresh Page
-          </button>
+      return (
+        <div className="error-container p-4 bg-red-50 border border-red-200 rounded-md">
+          <h2 className="text-red-600 font-bold">Something went wrong!</h2>
+          <pre className="mt-2 text-sm text-red-500">
+            {this.state.error?.toString()}
+          </pre>
         </div>
       );
     }
 
     return this.props.children;
   }
-} 
+}
+
+export default ErrorBoundary; 

@@ -1,32 +1,42 @@
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { NotificationProvider } from '@/contexts/NotificationContext';
-import AuthGuard from '@/components/Auth/AuthGuard';
-import { publicRoutes } from '@/utils/routes';
 import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 import { OnboardingProvider } from '../contexts/OnboardingContext';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import { useEffect } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const isPublicRoute = publicRoutes.includes(router.pathname);
+
+  useEffect(() => {
+    const handleAuth = async () => {
+      const token = localStorage.getItem('token');
+      const path = router.pathname;
+
+      if (!token && path.startsWith('/dashboard')) {
+        await router.push('/auth/login');
+      }
+    };
+
+    if (router.isReady) {
+      handleAuth();
+    }
+  }, [router.isReady, router.pathname]);
 
   return (
-    <OnboardingProvider>
-      <NotificationProvider>
-        <div className={inter.className}>
-          {isPublicRoute ? (
+    <ErrorBoundary>
+      <OnboardingProvider>
+        <NotificationProvider>
+          <div className={inter.className}>
             <Component {...pageProps} />
-          ) : (
-            <AuthGuard>
-              <Component {...pageProps} />
-            </AuthGuard>
-          )}
-        </div>
-      </NotificationProvider>
-    </OnboardingProvider>
+          </div>
+        </NotificationProvider>
+      </OnboardingProvider>
+    </ErrorBoundary>
   );
 }
 

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import SocialAuth from '@/components/SocialAuth';
 import styles from '@/styles/Auth.module.css';
-import { signup } from '@/services/auth';
 
 interface SignupFormData {
   firstName: string;
@@ -116,7 +115,7 @@ const SignupPage = () => {
     <div className={styles.container}>
       <div className={styles.authCard}>
         <div className={styles.leftSection}>
-          <h1 className={styles.leftTitle}>Join Volunteer</h1>
+          <h1 className={styles.leftTitle}>Join StudentVolunteer</h1>
           <p className={styles.leftText}>
             Create your account and start building amazing character sheets today
           </p>

@@ -22,7 +22,9 @@ export const useAdvancedFilters = () => {
 
     // Ensure all values are arrays
     for (const key in newFilters) {
-      formattedFilters[key] = Array.isArray(newFilters[key]) ? newFilters[key] : [newFilters[key]];
+      formattedFilters[key] = Array.isArray(newFilters[key]) 
+        ? (newFilters[key] as string[]) 
+        : [newFilters[key] as string];
     }
 
     setFilterCombinations(prev => [...prev, { filters: formattedFilters, operator }]);

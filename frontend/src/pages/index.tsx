@@ -1,155 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import SignupForm from '../components/Auth/SignupForm';
-import LoginForm from '../components/Auth/LoginForm';
-import { useRouter } from 'next/router';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import GoogleIcon from '@/components/icons/GoogleIcon';
-import Header from '@/components/Header';
-import Sidebar from '@/components/Sidebar';
+import React from 'react';
 import styles from '@/styles/Home.module.css';
 import Link from 'next/link';
+import Sidebar from '@/components/Sidebar';
 
-const AuthPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
-
-  const features = [
-    { id: 1, name: "Computer Science", icon: "💻" },
-    { id: 2, name: "Public Administration", icon: "🏛️" },
-    { id: 3, name: "Healthcare", icon: "🏥" },
-    { id: 4, name: "Engineering", icon: "⚡" },
-    { id: 5, name: "IT Services", icon: "🖥️" },
-    { id: 6, name: "Business Administration", icon: "💼" },
-    { id: 7, name: "Data Science", icon: "📊" },
-    { id: 8, name: "Show all", icon: "→" },
-  ];
-
-  const opportunities = [
-    {
-      company: "Tech Corp",
-      position: "Software Engineering Intern",
-      type: "Internship",
-      location: "Remote"
-    },
-    {
-      company: "Health Systems",
-      position: "Healthcare Data Analyst",
-      type: "Full-time",
-      location: "New York, NY"
-    },
-    // Add more opportunities...
-  ];
-
-  return (
-    <div className={styles.container}>
-      <div className={styles.authCard}>
-        <div className={styles.leftPanel}>
-          <div className={styles.brandContainer}>
-            <span className={styles.brandIcon}>🛠️</span>
-            <h1 className={styles.brandName}>Volunteer</h1>
-          </div>
-          <h2 className={styles.tagline}>Start your learning journey with us.</h2>
-          <p>Create personalized learning paths and track your progress.</p>
-        </div>
-        <div className={styles.rightPanel}>
-          {isLogin ? (
-            <LoginForm onToggle={() => setIsLogin(false)} />
-          ) : (
-            <SignupForm 
-              onToggle={() => setIsLogin(true)}
-              onSignupSuccess={() => {}}
-            />
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const LandingPage = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-  }, []);
-
-  const features = [
-    { title: "Computer Science", icon: "💻" },
-    { title: "Data Science", icon: "📊" },
-    { title: "Business", icon: "💼" },
-    { title: "Healthcare", icon: "🏥" },
-    { title: "Engineering", icon: "⚡" },
-    { title: "Design", icon: "🎨" },
-    { title: "Marketing", icon: "📱" },
-    { title: "Show all", icon: "→" }
-  ];
-
-  const opportunities = [
-    {
-      company: "Tech Corp",
-      position: "Software Engineering Intern",
-      type: "Internship",
-      location: "Remote"
-    },
-    {
-      company: "Health Systems",
-      position: "Healthcare Data Analyst",
-      type: "Full-time",
-      location: "New York, NY"
-    },
-    // Add more opportunities...
-  ];
-
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Chen",
-      role: "Software Engineer",
-      company: "Tech Corp",
-      text: "PathBuilder helped me structure my learning journey and connect with amazing mentors.",
-      image: "/testimonials/sarah.jpg"
-    },
-    // Add more testimonials...
-  ];
-
-  const statistics = [
-    { number: "50K+", label: "Active Learners" },
-    { number: "1000+", label: "Learning Paths" },
-    { number: "200+", label: "Industry Partners" },
-    { number: "95%", label: "Success Rate" },
-  ];
-
-  return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <div className={styles.hero}>
-          <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
-            <span className="block">Welcome to</span>
-            <span className="block text-blue-600">Volunteer</span>
-          </h1>
-          <p className="mt-3 text-xl text-gray-600">
-            Connect with organizations, find opportunities, and make a difference.
-          </p>
-          <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-            <div className="rounded-md shadow">
-              <Link
-                href="/auth/login"
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
-              >
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-};
-
-const Home = () => {
+export default function Home() {
   return (
     <div className={styles.layout}>
       <Sidebar />
@@ -163,7 +17,7 @@ const Home = () => {
         </section>
 
         <section className={styles.featuresSection}>
-          <h2 className={styles.sectionTitle}>Why PathBuilder?</h2>
+          <h2 className={styles.sectionTitle}>Why StudentVolunteer?</h2>
           <div className={styles.featureGrid}>
             <Link href="/volunteer" className={styles.featureCard}>
               <h3 className={styles.featureTitle}>Volunteer Work</h3>
@@ -197,7 +51,7 @@ const Home = () => {
 
         <section className={styles.aboutSection}>
           <div className={styles.aboutContent}>
-            <h2 className={styles.sectionTitle}>About Volunteer</h2>
+            <h2 className={styles.sectionTitle}>About StudentVolunteer</h2>
             <div className={styles.aboutGrid}>
               <div className={styles.aboutItem}>
                 <h3 className={styles.aboutItemTitle}>Our Mission</h3>
@@ -224,7 +78,7 @@ const Home = () => {
 
         <section className={styles.explanationSection}>
           <div className={styles.explanationContent}>
-            <h2 className={styles.sectionTitle}>How Volunteer Works</h2>
+            <h2 className={styles.sectionTitle}>How StudentVolunteer Works</h2>
             <div className={styles.stepGrid}>
               <div className={styles.step}>
                 <h3 className={styles.stepTitle}>1. Create Your Profile</h3>
@@ -248,6 +102,4 @@ const Home = () => {
       </main>
     </div>
   );
-};
-
-export default Home; 
+} 

@@ -9,16 +9,20 @@ export interface User {
 
 export interface Application {
   id: string;
-  education: string;
-  experience: string;
-  skills: string;
-  whyJoinUs: string;
-  contactEmail: string;
-  contactPhone: string;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED';
-  internshipId: string;
-  userId: string;
-  user: User;
+  status: string;
+  createdAt: string;
+  internship: {
+    title: string;
+    company: {
+      name: string;
+      location: string;
+    };
+  };
+  student: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
 }
 
 export interface Company {
@@ -54,4 +58,19 @@ export interface Task {
   deadline: string;
   status: string;
   priority: string;
+}
+
+export interface InternshipType {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  type: string;
+  status: string;
+  company: {
+    name: string;
+    location: string;
+  };
+  applications: Application[];
+  createdAt: string;
 } 

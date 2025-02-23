@@ -112,22 +112,25 @@ apiClient.interceptors.request.use((config) => {
   return config
 })
 
+// Create a helper function for API calls
 export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
   const token = localStorage.getItem('token');
   
   const headers = {
     'Content-Type': 'application/json',
-    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+    ...(token ? { 'Authorization': token } : {}),
     ...options.headers,
   };
 
   const response = await fetch(url, {
     ...options,
     headers,
+    credentials: 'include',
   });
 
   if (!response.ok) {
-    throw new Error('API request failed');
+    const error = await response.json();
+    throw new Error(error.message || 'Something went wrong');
   }
 
   return response.json();

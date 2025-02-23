@@ -9,7 +9,10 @@ export const ROUTES = {
 } as const;
 
 // Auth route protection
-export const publicRoutes = ['/', '/auth/login', '/auth/signup'];
+export const publicRoutes = [
+  '/auth/login',
+  '/auth/register'
+];
 
 export const authRoutes = [
   ROUTES.INTERESTS,

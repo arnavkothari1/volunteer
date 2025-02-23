@@ -13,7 +13,7 @@ const Sidebar = () => {
     <div className={styles.sidebar}>
       <div className={styles.logo}>
         <Link href="/" className={styles.logoLink}>
-          <span className={styles.logoText}>PathBuilder</span>
+          <span className={styles.logoText}>StudentVolunteer</span>
         </Link>
       </div>
 
@@ -45,7 +45,7 @@ const Sidebar = () => {
       </nav>
 
       <div className={styles.authButtons}>
-        <Link href="/auth/signup" className={styles.joinButton}>
+        <Link href="/auth/register" className={styles.joinButton}>
           Join now
         </Link>
         <Link href="/auth/login" className={styles.signInButton}>
