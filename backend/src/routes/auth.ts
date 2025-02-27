@@ -1,74 +1,65 @@
 import { Router, Request, Response } from 'express';
-import { prisma } from '../utils/prisma';
-import bcrypt from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { authenticateToken } from '../middleware/auth';
+import { prisma } from '../lib/prisma';
+import { AsyncRequestHandler } from '../types/express';
 
 const router = Router();
 
-// Signup route
-router.post('/signup', async (req: Request, res: Response): Promise<void> => {
+// Register route
+router.post('/register', async (req, res) => {
   try {
-    const { email, password, firstName, lastName, location, userType } = req.body;
+    const { email, password, role, fullName } = req.body;
 
-    // Check if user exists
+    // Split fullName into firstName and lastName
+    const [firstName, ...lastNameParts] = fullName.split(' ');
+    const lastName = lastNameParts.join(' ') || ''; // Join remaining parts or empty string if no last name
+
+    if (!['STUDENT', 'ORGANIZER'].includes(role)) {
+      res.status(400).json({ message: 'Invalid role' });
+      return;
+    }
+
     const existingUser = await prisma.user.findUnique({
       where: { email }
     });
 
     if (existingUser) {
-      res.status(400).json({ error: 'Email already registered' });
+      res.status(400).json({ message: 'Email already registered' });
       return;
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hash(password, 10);
 
-    // Create user
     const user = await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
+        role,
         firstName,
-        lastName,
-        location,
-        userType
+        lastName
       }
     });
 
-    // Create token
-    const token = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.JWT_SECRET || 'your-secret-key'
-    );
-
-    // Set cookie
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/'
-    });
-
-    // Set the redirect path based on user type
-    const redirectPath = user.userType === 'ORGANIZER' 
-      ? '/dashboard/organizer'
-      : '/dashboard/student';
-
+    // Generate token and send response
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!);
+    
     res.json({
+      success: true,
+      token,
       user: {
         id: user.id,
         email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        location: user.location,
-        userType: user.userType
-      },
-      redirectPath
+        role: user.role
+      }
     });
+
   } catch (error) {
-    console.error('Signup error:', error);
-    res.status(500).json({ error: 'Failed to create user' });
+    console.error('Registration error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to register user' 
+    });
   }
 });
 
@@ -76,54 +67,32 @@ router.post('/signup', async (req: Request, res: Response): Promise<void> => {
 router.post('/login', async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
-
+    
     const user = await prisma.user.findUnique({
-      where: { email },
-      select: {
-        id: true,
-        email: true,
-        password: true,
-        firstName: true,
-        lastName: true,
-        location: true,
-        userType: true
-      }
+      where: { email }
     });
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (!user) {
       res.status(401).json({ error: 'Invalid credentials' });
       return;
     }
 
-    const token = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.JWT_SECRET || 'your-secret-key'
-    );
+    const isValidPassword = await compare(password, user.password);
+    if (!isValidPassword) {
+      res.status(401).json({ error: 'Invalid credentials' });
+      return;
+    }
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/'
-    });
-
-    // Set the redirect path based on user type
-    const redirectPath = user.userType === 'ORGANIZER' 
-      ? '/dashboard/organizer'
-      : '/dashboard/student';
-
-    console.log('User type:', user.userType, 'Redirecting to:', redirectPath); // Debug log
+    // Create JWT token
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!);
 
     res.json({
+      token,
       user: {
         id: user.id,
         email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        location: user.location,
-        userType: user.userType
-      },
-      redirectPath
+        role: user.role
+      }
     });
   } catch (error) {
     console.error('Login error:', error);
@@ -131,31 +100,4 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// Get current user
-router.get('/me', authenticateToken, async (req: Request, res: Response): Promise<void> => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id: req.user?.id },
-      select: {
-        id: true,
-        email: true,
-        firstName: true,
-        lastName: true,
-        location: true,
-        userType: true
-      }
-    });
-
-    if (!user) {
-      res.status(404).json({ error: 'User not found' });
-      return;
-    }
-
-    res.json({ user });
-  } catch (error) {
-    console.error('Get current user error:', error);
-    res.status(500).json({ error: 'Failed to get user data' });
-  }
-});
-
-export default router; 
+export default router;

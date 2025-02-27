@@ -2,4 +2,10 @@ node_modules/
 dist/
 .env
 *.log
-coverage/ 
+coverage/
+
+# Ignore uploaded files
+uploads/aadhar/*
+uploads/marksheet/*
+!uploads/aadhar/.gitkeep
+!uploads/marksheet/.gitkeep 

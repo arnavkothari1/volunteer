@@ -1,181 +1,28 @@
-import { Router, Request, Response } from 'express';
-import { prisma } from '../utils/prisma';
-import { authenticateToken } from '../middleware/auth';
+import express, { Request, Response } from 'express';
+import { PrismaClient } from '@prisma/client';
+import { authenticate } from '../middleware/auth';
 
-const router = Router();
+const router = express.Router();
+const prisma = new PrismaClient();
 
-// Get current company (MUST come before /:id route)
-router.get('/current', authenticateToken, async (req: Request, res: Response): Promise<void> => {
+// Get current company
+router.get('/current', authenticate, async (req, res) => {
   try {
-    const userId = req.user?.id;
-
-    if (!userId) {
-      res.status(401).json({ error: 'User not authenticated' });
-      return;
-    }
-
-    console.log('Fetching company for user:', userId); // Debug log
-
-    const company = await prisma.company.findFirst({
-      where: {
-        organizerId: userId
-      },
-      include: {
-        user: {
-          select: {
-            firstName: true,
-            lastName: true,
-            email: true
-          }
-        },
-        internships: true
-      }
+    const company = await prisma.company.findUnique({
+      where: { organizerId: req.user?.id }
     });
-
-    if (!company) {
-      res.status(404).json({ 
-        error: 'No company found',
-        shouldRedirect: true 
-      });
-      return;
-    }
-
-    res.json(company);
+    res.json({ success: true, company });
   } catch (error) {
-    console.error('Error fetching company:', error);
-    res.status(500).json({ error: 'Failed to fetch company' });
+    res.status(500).json({ success: false, message: 'Failed to fetch company' });
   }
 });
 
 // Get all companies
-router.get('/', authenticateToken, async (req: Request, res: Response): Promise<void> => {
+router.get('/companies', async (_req, res) => {
   try {
-    console.log('Fetching all companies');
     const companies = await prisma.company.findMany({
       include: {
-        user: {
-          select: {
-            firstName: true,
-            lastName: true,
-            email: true
-          }
-        },
-        internships: true
-      }
-    });
-
-    console.log('Found companies:', companies);
-    res.json(companies);
-  } catch (error) {
-    console.error('Company fetch error:', error);
-    res.status(500).json({ error: 'Failed to fetch companies' });
-  }
-});
-
-// Get company by organizer ID
-router.get('/organizer/:id', authenticateToken, async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { id } = req.params;
-    console.log('Fetching company for organizer:', id);
-
-    const company = await prisma.company.findFirst({
-      where: {
-        organizerId: id
-      },
-      include: {
-        user: {
-          select: {
-            firstName: true,
-            lastName: true,
-            email: true
-          }
-        },
-        internships: true
-      }
-    });
-
-    if (!company) {
-      console.log('No company found for organizer:', id);
-      res.status(404).json({ error: 'Company not found' });
-      return;
-    }
-
-    console.log('Found company:', company);
-    res.json(company);
-  } catch (error) {
-    console.error('Company fetch error:', error);
-    res.status(500).json({ error: 'Failed to fetch company' });
-  }
-});
-
-// Get company by ID (MUST come after more specific routes)
-router.get('/:id', authenticateToken, async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { id } = req.params;
-    console.log('Fetching company by id:', id);
-
-    const company = await prisma.company.findUnique({
-      where: { id },
-      include: {
-        user: {
-          select: {
-            firstName: true,
-            lastName: true,
-            email: true
-          }
-        },
-        internships: true
-      }
-    });
-
-    if (!company) {
-      console.log('Company not found:', id);
-      res.status(404).json({ error: 'Company not found' });
-      return;
-    }
-
-    console.log('Found company:', company);
-    res.json(company);
-  } catch (error) {
-    console.error('Company fetch error:', error);
-    res.status(500).json({ error: 'Failed to fetch company' });
-  }
-});
-
-// Create company
-router.post('/', authenticateToken, async (req: Request, res: Response): Promise<void> => {
-  try {
-    const userId = req.user?.id;
-    if (!userId) {
-      res.status(401).json({ error: 'Not authenticated' });
-      return;
-    }
-
-    console.log('Creating company for user:', userId);
-
-    const {
-      name,
-      description,
-      userPosition,
-      occupiedPositions,
-      interests,
-      location,
-      isRemote
-    } = req.body;
-
-    const company = await prisma.company.create({
-      data: {
-        name,
-        description,
-        userPosition,
-        occupiedPositions,
-        interests,
-        location,
-        isRemote,
-        organizerId: userId
-      },
-      include: {
-        user: {
+        organizer: {
           select: {
             firstName: true,
             lastName: true,
@@ -184,12 +31,121 @@ router.post('/', authenticateToken, async (req: Request, res: Response): Promise
         }
       }
     });
-
-    console.log('Created company:', company);
-    res.json(company);
+    res.json(companies);
   } catch (error) {
-    console.error('Company creation error:', error);
-    res.status(500).json({ error: 'Failed to create company' });
+    res.status(500).json({ error: 'Failed to fetch companies' });
+  }
+});
+
+// Get company by organizer ID
+router.get('/organizer/:id', authenticate, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const company = await prisma.company.findUnique({
+      where: { organizerId: id }
+    });
+    res.json({ success: true, company });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to fetch company' });
+  }
+});
+
+// Get company by ID
+router.get('/:id', authenticate, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const company = await prisma.company.findUnique({
+      where: { id }
+    });
+    res.json({ success: true, company });
+  } catch (error) {
+    console.error('Error fetching company:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch company' });
+  }
+});
+
+// Check if company exists for current user
+router.get('/check', authenticate, async (req, res) => {
+  try {
+    const company = await prisma.company.findUnique({
+      where: { organizerId: req.user?.id }
+    });
+    res.json({ success: true, exists: !!company });
+  } catch (error) {
+    console.error('Error checking company:', error);
+    res.status(500).json({ success: false, message: 'Failed to check company' });
+  }
+});
+
+// Create company
+router.post('/', authenticate, async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { name, description, location, email, industry, mission, benefits, position, occupiedPositions } = req.body;
+
+    // Check if user already has a company
+    const existingCompany = await prisma.company.findUnique({
+      where: { organizerId: req.user?.id }
+    });
+
+    if (existingCompany) {
+      res.status(400).json({
+        success: false,
+        message: 'You already have a company profile'
+      });
+      return;
+    }
+
+    const company = await prisma.company.create({
+      data: {
+        name,
+        description,
+        location,
+        email,
+        industry,
+        mission,
+        benefits,
+        position,
+        occupiedPositions: parseInt(occupiedPositions),
+        organizer: {
+          connect: { id: req.user?.id }
+        }
+      }
+    });
+
+    res.json({
+      success: true,
+      company
+    });
+  } catch (error) {
+    console.error('Error creating company:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create company'
+    });
+  }
+});
+
+// Get company profile
+router.get('/profile', authenticate, async (req, res) => {
+  try {
+    const company = await prisma.company.findUnique({
+      where: { organizerId: req.user?.id }
+    });
+    res.json({ success: true, company });
+  } catch (error) {
+    console.error('Error fetching company profile:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch company profile' });
+  }
+});
+
+// Debug route
+router.get('/debug', authenticate, async (req, res) => {
+  try {
+    const companies = await prisma.company.findMany();
+    res.json({ success: true, companies });
+  } catch (error) {
+    console.error('Error fetching companies:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch companies' });
   }
 });
 

@@ -1,0 +1,12 @@
+/* Company styles */
+.company-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.company-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+} 

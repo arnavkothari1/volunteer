@@ -2,6 +2,8 @@
   display: flex;
   min-height: 100vh;
   background-color: #f3f4f6;
+  margin-left: 180px;
+  padding: 2rem;
 }
 
 .sidebar {
@@ -113,4 +115,61 @@
 
 .view-button:hover {
   background-color: #1d4ed8;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.create-button {
+  background: #1a237e;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.create-button:hover {
+  background: #0d47a1;
+}
+
+.internships-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.internship-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #eaeaea;
+}
+
+.card-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card-actions button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #1a237e;
+  background: transparent;
+  color: #1a237e;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-actions button:hover {
+  background: #1a237e;
+  color: white;
 } 

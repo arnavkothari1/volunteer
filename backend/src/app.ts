@@ -2,10 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/auth';
 import profileRoutes from './routes/profile';
-import companyRouter from './routes/company';
-import internshipRoutes from './routes/internship';
+import companyRoutes from './routes/company';
+import internshipRoutes from './routes/internships';
 import cookieParser from 'cookie-parser';
-import applicationRoutes from './routes/applications';
+import applicationRoutes from './routes/application';
+import uploadRouter from './routes/upload';
+import profileRouter from './routes/profile';
 
 const app = express();
 
@@ -14,9 +16,9 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:3000',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 
 // Request logging middleware
@@ -27,11 +29,12 @@ app.use((req, res, next) => {
 
 // Mount routes
 app.use('/api/auth', authRoutes);
-app.use('/api/profile', profileRoutes);
-app.use('/api/company', companyRouter);
+app.use('/api', profileRouter);
+app.use('/api/company', companyRoutes);
 app.use('/api/internships', internshipRoutes);
-app.use('/api/internship', internshipRoutes);
-app.use('/api/applications', applicationRoutes);
+app.use('/api/application', applicationRoutes);
+app.use('/api/upload', uploadRouter);
+app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 5000;
 

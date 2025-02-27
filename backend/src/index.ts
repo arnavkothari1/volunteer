@@ -4,7 +4,11 @@ import cookieParser from 'cookie-parser';
 import authRouter from './routes/auth';
 import usersRouter from './routes/users';
 import profileRouter from './routes/profile';
-import applicationRoutes from './routes/applications';
+import applicationRoutes from './routes/application';
+import protectedRoutes from './routes/protected';
+import searchRoutes from './routes/search';
+import internshipRoutes from './routes/internships';
+import path from 'path';
 
 const app = express();
 
@@ -22,7 +26,13 @@ app.use(cookieParser());
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/profile', profileRouter);
-app.use('/api/applications', applicationRoutes);
+app.use('/api/application', applicationRoutes);
+app.use('/api', searchRoutes);
+app.use('/api', internshipRoutes);
+app.use('/api', protectedRoutes);
+
+// Serve uploaded files
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

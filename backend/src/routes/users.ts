@@ -1,11 +1,11 @@
 import { Router, Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
-import { authenticateToken } from '../middleware/auth';
+import { authenticate, authorizeRole } from '../middleware/auth';
 
 const prisma = new PrismaClient();
 const router = Router();
 
-router.put('/update-profile', authenticateToken, async (req: Request, res: Response): Promise<void> => {
+router.put('/update-profile', authenticate, async (req: Request, res: Response): Promise<void> => {
   try {
     const { location, userType } = req.body;
     const userId = req.user?.id;

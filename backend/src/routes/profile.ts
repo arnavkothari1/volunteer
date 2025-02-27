@@ -1,49 +1,41 @@
-import { Router, Request, Response } from 'express';
-import { prisma } from '../utils/prisma';
-import { authenticateToken } from '../middleware/auth';
+import { Router } from 'express';
+import { prisma } from '../lib/prisma';
+import { authenticate } from '../middleware/auth';
+import { AsyncRequestHandler } from '../types/express';
 
 const router = Router();
 
-router.post('/', authenticateToken, async (req: Request, res: Response): Promise<void> => {
+router.get('/profile', authenticate, (async (req, res) => {
   try {
-    const { location, userType } = req.body;
-    const userId = req.user?.id;
-
-    console.log('Profile update:', { userId, location, userType });
-
-    if (!userId) {
-      res.status(401).json({ error: 'Not authenticated' });
-      return;
-    }
-
-    const updatedUser = await prisma.user.update({
-      where: {
-        id: userId
-      },
-      data: {
-        location,
-        userType
+    const user = await prisma.user.findUnique({
+      where: { id: req.user!.id },
+      include: {
+        company: true  // Only include company data
       }
     });
 
-    console.log('Updated user:', updatedUser);
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
 
-    // Set redirect path based on user type
-    const redirectPath = userType === 'ORGANIZER' 
-      ? '/company/create'
-      : '/dashboard/student';
+    res.json(user);
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    res.status(500).json({ error: 'Failed to fetch profile' });
+  }
+}) as AsyncRequestHandler);
 
-    res.json({
-      success: true,
-      user: updatedUser,
-      redirectPath
+router.put('/profile', authenticate, async (req, res) => {
+  try {
+    const { firstName, lastName, email } = req.body;
+    const user = await prisma.user.update({
+      where: { id: req.user!.id },
+      data: { firstName, lastName, email }
     });
-  } catch (error: any) {
-    console.error('Profile update error:', error);
-    res.status(500).json({ 
-      error: 'Failed to update profile',
-      details: error.message 
-    });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update profile' });
   }
 });
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { Image } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/Auth.module.css';
 
 interface LoginFormProps {
@@ -8,7 +8,7 @@ interface LoginFormProps {
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onToggle }) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -42,7 +42,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onToggle }) => {
       
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        router.push('/dashboard');
+        navigate('/dashboard');
       } else {
         setError(data.message || 'Invalid email or password');
       }

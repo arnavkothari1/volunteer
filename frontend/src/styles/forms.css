@@ -1,10 +1,12 @@
+/* Forms styles */
 .form-container {
+  padding: 2rem;
   max-width: 800px;
-  margin: 40px auto;
-  padding: 32px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1rem;
 }
 
 .form-title {

@@ -1,0 +1,135 @@
+/* Applications styles */
+.applications-container {
+  padding: 2rem;
+}
+
+.applications-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.applications-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  background: transparent;
+  border: none;
+  color: #1a237e;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.company-name {
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.no-applications {
+  text-align: center;
+  padding: 3rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  color: #666;
+}
+
+.application-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.applicant-info h3 {
+  color: #1a237e;
+  margin: 0 0 0.5rem 0;
+}
+
+.applicant-info p {
+  color: #666;
+  margin: 0;
+}
+
+.date {
+  font-size: 0.9rem;
+  margin-top: 0.5rem !important;
+}
+
+.application-documents {
+  display: flex;
+  gap: 1rem;
+}
+
+.document-link {
+  color: #1a237e;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid #1a237e;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.document-link:hover {
+  background: #1a237e;
+  color: white;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.accept-btn, .reject-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+
+.accept-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.reject-btn {
+  background: #f44336;
+  color: white;
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-weight: 500;
+  text-align: center;
+  display: inline-block;
+}
+
+.status-badge.accepted {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.rejected {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-badge.pending {
+  background: #fff3e0;
+  color: #f57c00;
+} 

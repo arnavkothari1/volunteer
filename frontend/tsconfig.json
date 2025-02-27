@@ -39,7 +39,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/middleware.ts.bak"  ],
   "exclude": [
     "node_modules",
     ".next",
